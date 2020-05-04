@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1588624918 source:c:\users\angel\desktop\saving space\libgame.cpp
+	"libgame.h"
+	<windows.h>
+	<stdio.h>
+	<conio.h>
+	<iostream>
+
+1588579997 c:\users\angel\desktop\saving space\libgame.h
+
+1588624838 source:c:\users\angel\desktop\saving space\main.cpp
+	<iostream>
+	<stdio.h>
+	<conio.h>
+	"libgame.h"
+
