@@ -2,12 +2,11 @@
 #define LIBGAME_H_INCLUDED
 
 // NUMEROS ASOCIADOS A LAS FLECHAS DEL TECLADO
-#define ARRIBA     87
-#define IZQUIERDA  65
-#define DERECHA    68
-#define ABAJO      83
-#define ESC        27
-#define ENTER      13
+#define W_ARRIBA     87
+#define A_IZQUIERDA  65
+#define D_DERECHA    68
+#define S_ABAJO      83
+#define ESC          27
 
 // colores
 #define AZUL       0x001
@@ -31,9 +30,14 @@ void gotoxy(int x, int y);
 void OcultaCursor();
 void pintar_marco();
 void pintar_titulo();
+void pintar_tituloR();
 void fondo_menu();
+void fondo_menuR();
 void Color(int color);
 void pausa(int x);
 void pausa();
+void Diseno_Juego();
+void Msotrar_Controles();
+void Mostrar_Creditos();
 
 #endif // LIBGAME_H_INCLUDED
