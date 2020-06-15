@@ -2,17 +2,19 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <windows.h>
 #include "libgame.h"
+
+#define TECLA_ARRIBA 72
+#define TECLA_ABAJO 80
+#define ENTER 13
 
 using namespace std;
 
-void menu_principal();
-void juego();
-void controles();
-void creditos();
-
 int main(){
-
+    
+   vidas(3);
+   getch();
    menu_principal();
 
     return 0;
@@ -23,27 +25,16 @@ void menu_principal(){
    bool start = true;
    int opc;
 
+   int n = 4;
    do{
-   system("title Saving Space");
    system("cls");
-   OcultaCursor();
    Color(AZUL);
    pintar_marco();
    Color(BLANCO);
    pintar_titulo();
    Color(BLANCO);
    fondo_menu();
-   Color(ROJO);
-   gotoxy(66,1);cout<<"1.-JUGAR-";
-   Color(VERDE);
-   gotoxy(66,3);cout<<"2.-CONTROLES-";
-   Color(AMARILLO);
-   gotoxy(66,5);cout<<"3.-CREDITOS-";
-   Color(AQUA);
-   gotoxy(66,7);cout<<"4.-SALIR-";
-
-   cin>>opc;
-
+   opc = MostrarOpciones(n);
    switch(opc){
 
    case 1:
@@ -80,26 +71,33 @@ void menu_principal(){
 void juego(){
 
     bool start = true;
+    int tecla;
+    int num_vidas = 8;
 
-    int salir;
+    int y = 1, x = 1;
+    int yy = 2, xx = 1;
+    int y1 = 3, x1 = 1;
     do{
-        system("cls");
-        Color(AZUL);
-        pintar_marco();
-        Color(BLANCO);
-        gotoxy(30,10);cout<<"---JUEGO---";
-        Color(VERDE);
-        gotoxy(66,1);cout<<"VIDAS: ";
-        Color(PLATA);
-        gotoxy(66,3);cout<<"PUNTAJE: ";
-        Color(BLANCO);
-        gotoxy(66,5);cout<<"--SALIR--";
-        cin>>salir;
+      system("cls");
+      Color(AZUL);
+      pintar_marco();
+      Color(BLANCO);
+      Diseno_Juego();
+      Color(AQUA);
+      gotoxy(67,2); cout<<"PUNTAJE:";
+      Color(VERDE);
+      gotoxy(67,4);cout<<"VIDAS:";
+      Color(GRIS);
+      gotoxy(67,6);cout<<char(174)<<"Doble ENTER";
+      gotoxy(68,7);cout<<"PARA SALIR"<<char(175);
+      tecla = getch();
+      OcultaCursor();
+      do{
 
-      switch(salir){
+      }while(tecla!=ENTER);
+      switch(tecla){
 
-      case 1:
-
+      case ENTER:
         start = false;
         break;
 
@@ -111,21 +109,24 @@ void juego(){
 void controles(){
 
     bool start = true;
-
-    int salir;
+    int tecla;
     do{
-        system("cls");
-        Color(AZUL);
-        pintar_marco();
-        Color(BLANCO);
-        gotoxy(30,10);cout<<"---Controles---";
-        gotoxy(66,1);cout<<"--SALIR--";
-        cin>>salir;
+      system("cls");
+      OcultaCursor;
+      Color(AZUL);
+      pintar_marco();
+      Color(BLANCO);
+      Msotrar_Controles();
+      Color(GRIS);
+      gotoxy(67,1);cout<<char(174)<<"Doble ENTER";
+      gotoxy(68,2);cout<<"PARA SALIR"<<char(175);
+      tecla = getch();
+      do{
 
-      switch(salir){
+      }while(tecla!=ENTER);
+      switch(tecla){
 
-      case 1:
-
+      case ENTER:
         start = false;
         break;
 
@@ -138,28 +139,78 @@ void controles(){
 void creditos(){
 
     bool start = true;
-
-    int salir;
+    int tecla;
     do{
-
       system("cls");
+      OcultaCursor;
       Color(AZUL);
       pintar_marco();
       Color(BLANCO);
-      gotoxy(30,10);cout<<"---CREDITOS---";
-      gotoxy(66,1);cout<<"--SALIR--";
-      cin>>salir;
+      Mostrar_Creditos();
+      Color(GRIS);
+      gotoxy(67,1);cout<<char(174)<<"Doble ENTER";
+      gotoxy(68,2);cout<<"PARA SALIR"<<char(175);
+      tecla = getch();
+      do{
 
-      switch(salir){
+      }while(tecla!=ENTER);
+      switch(tecla){
 
-      case 1:
-
+      case ENTER:
         start = false;
         break;
 
       }
 
     }while(start);
+}
 
+int MostrarOpciones(int n){
 
+    int seleccion = 1;
+    int tecla;
+    bool bucle = true;
+    do{
+        system("cls");
+        OcultaCursor();
+        Color(AZUL);
+        pintar_marco();
+        Color(BLANCO);
+        pintar_tituloR();
+        Color(BLANCO);
+        fondo_menuR();
+        Color(ROJO);
+        gotoxy(68,2);cout<<"1.-JUGAR";
+        Color(VERDE);
+        gotoxy(68,3);cout<<"2.-CONTROLES";
+        Color(AMARILLO);
+        gotoxy(68,4);cout<<"3.-CREDITOS";
+        Color(AZULC);
+        gotoxy(68,5);cout<<"4.-SALIR";
+        Color(PLATA);
+        gotoxy(66,1 + seleccion); cout<<"->";
+
+        do{
+            tecla = getch();
+        }while(tecla != TECLA_ARRIBA && tecla != TECLA_ABAJO && tecla != ENTER);
+        switch(tecla){
+
+        case TECLA_ARRIBA:
+            seleccion--;
+            if(seleccion < 1){
+                seleccion = n;
+            }
+            break;
+        case TECLA_ABAJO:
+            seleccion++;
+            if(seleccion > n){
+                seleccion = 1;
+            }
+            break;
+        case ENTER:
+            bucle = false;
+            break;
+        }
+    }while(bucle);
+    return seleccion;
 }
